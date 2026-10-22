@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>INADEQUATE Stepper Figure</title>
+<style>
+/* Layout: the figure alone. Controls on top, the sequence diagram full width, a three-column panel under it (explanation | spin state | picture) that stacks on phones. System fonts only, so the file also works offline when double-clicked. */
+:root{
+  --bg:#f3f4f7;--surface:#ffffff;--surface-2:#e9ebf0;--ink:#1a1c22;--ink-2:#575b65;--line:#d5d8df;--line-2:#aab0bb;
+  --c13:#4b43b3;--c13-bg:#e8e6fa;--c13-ink:#332d84;--h1:#167a62;--h1-bg:#dcf3ea;--h1-ink:#0b5343;--path:#6a60d8;
+  --font:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15171b;--surface:#1d2026;--surface-2:#272b33;--ink:#e8e9ed;--ink-2:#a4a9b4;--line:#373c46;--line-2:#545b69;--c13:#aaa4ef;--c13-bg:#302a7a;--c13-ink:#e8e6fa;--h1:#5cc9a6;--h1-bg:#0d4a3b;--h1-ink:#dcf3ea;--path:#aaa4ef;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15171b;--surface:#1d2026;--surface-2:#272b33;--ink:#e8e9ed;--ink-2:#a4a9b4;--line:#373c46;--line-2:#545b69;--c13:#aaa4ef;--c13-bg:#302a7a;--c13-ink:#e8e6fa;--h1:#5cc9a6;--h1-bg:#0d4a3b;--h1-ink:#dcf3ea;--path:#aaa4ef;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.5}
+.wrap{max-width:1100px;margin:0 auto;padding-block:10px 14px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-bottom:10px}
+.top h1{font-size:18px;font-weight:600;margin:0 auto 0 0}
+button.btn{font:inherit;font-size:14px;font-weight:500;padding:7px 13px;border:1px solid var(--line-2);border-radius:9px;background:var(--surface);color:var(--ink);cursor:pointer}
+button.btn:hover{border-color:var(--c13)}
+button:focus-visible{outline:2px solid var(--c13);outline-offset:2px}
+.dots{display:flex;gap:5px;flex-wrap:wrap}
+.dots button{width:26px;height:26px;border-radius:50%;border:1px solid var(--line-2);background:var(--surface);font:12px var(--mono);color:var(--ink-2);cursor:pointer}
+.dots button[aria-current="true"]{background:var(--c13);border-color:var(--c13);color:#fff}
+.hint{font-size:12.5px;color:var(--ink-2)}
+.scroll{overflow-x:auto;max-width:100%;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 4px}
+svg{max-width:100%;height:auto;display:block}
+.seq{min-width:760px;color:var(--ink)}
+.blk{cursor:pointer;transition:opacity .25s}
+.blk.dim{opacity:.26}
+.seg{transition:opacity .25s}
+.seg.off{opacity:.12}
+.seg.now{stroke-width:3}
+.panel{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr) minmax(0,.9fr);gap:14px;margin-top:12px}
+@media (max-width:860px){.panel{grid-template-columns:1fr 1fr}.panel .c3{grid-column:1/-1}}
+@media (max-width:560px){.panel{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-width:0}
+.ttl{font-size:17px;font-weight:600;margin:0 0 6px}
+.lbl{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);margin:10px 0 4px}
+.lbl:first-child{margin-top:0}
+.formula{font-family:var(--mono);font-size:13px;background:var(--surface-2);padding:6px 10px;border-radius:6px;display:inline-block;max-width:100%;overflow-x:auto}
+.pic{background:var(--surface-2);border-radius:10px;padding:8px 6px 2px}
+.piccap{font-size:13px;color:var(--ink-2);margin:6px 0 0}
+p{margin:4px 0}
+.foot{font-size:12.5px;color:var(--ink-2);margin-top:12px}
+.foot a{color:var(--c13)}
+@media (prefers-reduced-motion:no-preference){.spin{animation:spin 7s linear infinite}.spin.fast{animation-duration:4.5s}}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="top">
+<h1>Refocused INADEQUATE, step by step</h1>
+<button class="btn" id="prev" type="button">← Previous</button>
+<button class="btn" id="next" type="button">Next →</button>
+<div class="dots" id="dots" role="tablist" aria-label="Steps"></div>
+<span class="hint" id="stp"></span>
+</div>
+<div class="scroll">
+<svg class="seq" viewBox="0 0 900 404" role="img" aria-label="Pulse sequence of the refocused J-INADEQUATE with its coherence transfer pathway" style="font-family:var(--font)">
+<text x="18" y="79" font-size="14" font-weight="600" fill="currentColor">¹H</text>
+<text x="18" y="172" font-size="14" font-weight="600" fill="currentColor">¹³C</text>
+<text x="18" y="322" font-size="14" font-weight="600" fill="currentColor">p</text>
+<line x1="80" y1="92" x2="880" y2="92" stroke="currentColor" stroke-width="0.6"/>
+<line x1="80" y1="196" x2="880" y2="196" stroke="currentColor" stroke-width="0.6"/>
+<g class="blk" data-s="0">
+<rect x="80" y="58" width="44" height="34" rx="4" fill="none" stroke="var(--line-2)" stroke-dasharray="3 3"/>
+<text x="102" y="79" font-size="12" text-anchor="middle" fill="var(--ink-2)">off</text>
+<text x="102" y="218" font-size="12" text-anchor="middle" fill="var(--ink-2)">d1</text>
+</g>
+<g class="blk" data-s="1 2 3 4 5 6">
+<rect x="134" y="58" width="510" height="34" rx="4" fill="var(--h1-bg)" stroke="var(--h1)"/>
+<text x="389" y="79" font-size="12.5" text-anchor="middle" fill="var(--h1-ink)">cpdprg2: TPPM proton decoupling at pl22</text>
+</g>
+<g class="blk" data-s="7">
+<rect x="644" y="58" width="236" height="34" rx="4" fill="var(--h1-bg)" stroke="var(--h1)"/>
+<text x="762" y="79" font-size="12.5" text-anchor="middle" fill="var(--h1-ink)">cpdprg3: TPPM at pl12</text>
+</g>
+<g class="blk" data-s="1 8">
+<rect x="124" y="140" width="10" height="56" rx="1.5" fill="var(--c13-bg)" stroke="var(--c13)"/>
+<text x="129" y="112" font-size="12" text-anchor="middle" fill="var(--ink-2)">p1 90°</text>
+<text x="129" y="128" font-size="12" text-anchor="middle" fill="var(--ink-2)">ph1</text>
+</g>
+<g class="blk" data-s="2 8">
+<text x="179" y="218" font-size="12" text-anchor="middle" fill="var(--ink-2)">d2</text>
+<rect x="224" y="140" width="20" height="56" rx="1.5" fill="var(--c13-bg)" stroke="var(--c13)"/>
+<text x="234" y="112" font-size="12" text-anchor="middle" fill="var(--ink-2)">p2 180°</text>
+<text x="234" y="128" font-size="12" text-anchor="middle" fill="var(--ink-2)">ph2</text>
+<text x="289" y="218" font-size="12" text-anchor="middle" fill="var(--ink-2)">d2</text>
+</g>
+<g class="blk" data-s="3 8">
+<rect x="334" y="140" width="10" height="56" rx="1.5" fill="var(--c13-bg)" stroke="var(--c13)"/>
+<text x="339" y="112" font-size="12" text-anchor="middle" fill="var(--ink-2)">p1 90°</text>
+<text x="339" y="128" font-size="12" text-anchor="middle" fill="var(--ink-2)">ph3</text>
+</g>
+<g class="blk" data-s="4 8">
+<line x1="346" y1="168" x2="432" y2="168" stroke="var(--c13)" stroke-width="0.8" stroke-dasharray="2 3"/>
+<text x="389" y="218" font-size="12" text-anchor="middle" fill="var(--ink-2)">d0 = t1</text>
+</g>
+<g class="blk" data-s="5">
+<rect x="434" y="140" width="10" height="56" rx="1.5" fill="var(--c13-bg)" stroke="var(--c13)"/>
+<text x="439" y="112" font-size="12" text-anchor="middle" fill="var(--ink-2)">p1 90°</text>
+<text x="439" y="128" font-size="12" text-anchor="middle" fill="var(--ink-2)">ph4</text>
+</g>
+<g class="blk" data-s="6">
+<text x="489" y="218" font-size="12" text-anchor="middle" fill="var(--ink-2)">d2</text>
+<rect x="534" y="140" width="20" height="56" rx="1.5" fill="var(--c13-bg)" stroke="var(--c13)"/>
+<text x="544" y="112" font-size="12" text-anchor="middle" fill="var(--ink-2)">p2 180°</text>
+<text x="544" y="128" font-size="12" text-anchor="middle" fill="var(--ink-2)">ph5</text>
+<text x="599" y="218" font-size="12" text-anchor="middle" fill="var(--ink-2)">d2 + d11</text>
+</g>
+<g class="blk" data-s="7">
+<path d="M644 196 Q652 150 660 196 Q668 240 676 196 Q684 160 692 196 Q700 230 708 196 Q716 168 724 196 Q732 222 740 196 Q748 176 756 196 Q764 214 772 196 Q780 184 788 196 Q796 206 804 196 Q812 190 820 196 Q828 200 836 196 L880 196" fill="none" stroke="var(--c13)" stroke-width="1.4"/>
+<text x="762" y="246" font-size="12" text-anchor="middle" fill="var(--ink-2)">acquire, receiver phase ph31</text>
+</g>
+<line x1="80" y1="266" x2="880" y2="266" stroke="var(--line)"/>
+<line x1="80" y1="292" x2="880" y2="292" stroke="var(--line)"/>
+<line x1="80" y1="318" x2="880" y2="318" stroke="var(--line)"/>
+<line x1="80" y1="344" x2="880" y2="344" stroke="var(--line)"/>
+<line x1="80" y1="370" x2="880" y2="370" stroke="var(--line)"/>
+<text x="64" y="270" font-size="12" text-anchor="end" fill="var(--ink-2)">+2</text>
+<text x="64" y="296" font-size="12" text-anchor="end" fill="var(--ink-2)">+1</text>
+<text x="64" y="322" font-size="12" text-anchor="end" fill="var(--ink-2)">0</text>
+<text x="64" y="348" font-size="12" text-anchor="end" fill="var(--ink-2)">−1</text>
+<text x="64" y="374" font-size="12" text-anchor="end" fill="var(--ink-2)">−2</text>
+<path class="seg" data-k="0" d="M80 318 L124 318" fill="none" stroke="var(--path)" stroke-width="1.8" stroke-linejoin="round"/>
+<path class="seg" data-k="1" d="M124 318 L134 292 M124 318 L134 344" fill="none" stroke="var(--path)" stroke-width="1.8" stroke-linejoin="round"/>
+<path class="seg" data-k="2" d="M134 292 L224 292 L244 344 L334 344 M134 344 L224 344 L244 292 L334 292" fill="none" stroke="var(--path)" stroke-width="1.8" stroke-linejoin="round"/>
+<path class="seg" data-k="3" d="M334 292 L344 266 M334 344 L344 370" fill="none" stroke="var(--path)" stroke-width="1.8" stroke-linejoin="round"/>
+<path class="seg" data-k="4" d="M344 266 L434 266 M344 370 L434 370" fill="none" stroke="var(--path)" stroke-width="1.8" stroke-linejoin="round"/>
+<path class="seg" data-k="5" d="M434 266 L444 292 M434 370 L444 292" fill="none" stroke="var(--path)" stroke-width="1.8" stroke-linejoin="round"/>
+<path class="seg" data-k="6" d="M444 292 L534 292 L554 344 L644 344" fill="none" stroke="var(--path)" stroke-width="1.8" stroke-linejoin="round"/>
+<path class="seg" data-k="7" d="M644 344 L880 344" fill="none" stroke="var(--path)" stroke-width="1.8" stroke-linejoin="round"/>
+<text x="880" y="396" font-size="11.5" text-anchor="end" fill="var(--ink-2)">Purple: the coherence pathway kept by the phase cycle. Time runs left to right; widths are not to scale.</text>
+</svg>
+</div>
+<div class="panel">
+<div class="card">
+<div class="ttl" id="ttl"></div>
+<p id="what"></p>
+<div class="lbl">Code</div>
+<div class="formula" id="cod"></div>
+</div>
+<div class="card">
+<div class="lbl">Spin state of one bonded pair</div>
+<div class="formula" id="sta"></div>
+<p id="splain" style="font-size:13.5px;margin-top:6px"></p>
+<div class="lbl">Coherence order p</div>
+<div class="formula" id="ord"></div>
+</div>
+<div class="card c3">
+<div class="pic"><div id="pic"></div></div>
+<p class="piccap" id="piccap"></p>
+</div>
+</div>
+<p class="foot">Sequence and parameters from the Wang lab pulse program spjinadq.tw (Zenodo 12700137, CC BY 4.0); method: Lesage, Bardet and Emsley, J. Am. Chem. Soc. 121, 10987 (1999). Click any block.</p>
+</div>
+<script>
+'use strict';
+var C13='var(--c13)';
+function arrow(cx,cy,ang,len,cls,dash){var head=cx+len;return '<g class="'+(cls||'')+'" style="transform-origin:'+cx+'px '+cy+'px"><g transform="rotate('+ang+' '+cx+' '+cy+')"><line x1="'+cx+'" y1="'+cy+'" x2="'+(head-6)+'" y2="'+cy+'" stroke="'+C13+'" stroke-width="2.6"'+(dash?' stroke-dasharray="4 3"':'')+'/><polygon points="'+head+','+cy+' '+(head-8)+','+(cy-4.5)+' '+(head-8)+','+(cy+4.5)+'" fill="'+C13+'"/></g></g>';}
+function dot(cx,cy){return '<circle cx="'+cx+'" cy="'+cy+'" r="5" fill="'+C13+'"/><circle cx="'+cx+'" cy="'+cy+'" r="10" fill="none" stroke="'+C13+'"/>';}
+function face(cx,cy,lab,inner,noax){return '<circle cx="'+cx+'" cy="'+cy+'" r="38" fill="var(--surface)" stroke="var(--line-2)"/><line x1="'+(cx-38)+'" y1="'+cy+'" x2="'+(cx+38)+'" y2="'+cy+'" stroke="var(--line)"/><line x1="'+cx+'" y1="'+(cy-38)+'" x2="'+cx+'" y2="'+(cy+38)+'" stroke="var(--line)"/>'+(noax?'':'<text x="'+(cx+43)+'" y="'+(cy+4)+'" font-size="11" fill="var(--ink-2)">x</text><text x="'+(cx-3)+'" y="'+(cy-43)+'" font-size="11" fill="var(--ink-2)">y</text>')+inner+'<text x="'+cx+'" y="'+(cy+58)+'" text-anchor="middle" font-size="13" font-weight="600" fill="var(--ink)">'+lab+'</text>';}
+function svgWrap(w,h,inner,label){return '<svg viewBox="0 0 '+w+' '+h+'" role="img" aria-label="'+label+'" style="font-family:var(--font)">'+inner+'</svg>';}
+var PICS={
+  z:[face(70,62,'I',dot(70,62))+face(190,62,'S',dot(190,62)),'Both along the field, pointing out of the page. Nothing turns, no signal.'],
+  y:[face(70,62,'I',arrow(70,62,90,34,'spin'))+face(190,62,'S',arrow(190,62,90,34,'spin')),'Both in the plane, each turning at its own frequency. The coil could see this.'],
+  anti:[face(70,62,'I',arrow(70,62,0,27,'spin')+arrow(70,62,180,27,'spin',true))+face(190,62,'S',arrow(190,62,0,27,'spin')+arrow(190,62,180,27,'spin',true)),'Antiphase: the two halves of each doublet (solid: neighbour up, dashed: neighbour down) point opposite ways and cancel.'],
+  dq:['<rect x="26" y="18" width="208" height="88" rx="44" fill="none" stroke="'+C13+'" stroke-dasharray="4 4"/>'+face(70,62,'I',arrow(70,62,-90,34,'spin fast'),true)+face(190,62,'S',arrow(190,62,-90,34,'spin fast'),true),'One shared phase for the pair, turning at Ωᵢ + Ωₛ. Invisible to the coil.'],
+  inph:[face(70,62,'I',arrow(70,62,-90,21,'spin'))+face(190,62,'S',arrow(190,62,-90,21,'spin')),'In-phase again and shorter: both halves add, but two J conversions cost sin²(2πJτ).'],
+  fid:['<path d="M20 62 Q30 12 40 62 Q50 112 60 62 Q70 22 80 62 Q90 100 100 62 Q110 32 120 62 Q130 90 140 62 Q150 42 160 62 Q170 80 180 62 Q190 50 200 62 Q210 72 220 62 Q230 56 240 62" fill="none" stroke="'+C13+'" stroke-width="2.2"/><line x1="20" y1="62" x2="240" y2="62" stroke="var(--line-2)" stroke-dasharray="3 3"/><text x="130" y="118" text-anchor="middle" font-size="13" font-weight="600" fill="var(--ink)">FID, 19.4 ms</text>','The coil records the in-phase signal under proton decoupling.'],
+  loop:['<path d="M130 30 A34 34 0 1 1 96 64" fill="none" stroke="'+C13+'" stroke-width="2.6"/><polygon points="96,54 90,68 104,66" fill="'+C13+'"/><text x="130" y="68" text-anchor="middle" font-size="12" fill="var(--ink)">cos, sin</text><text x="130" y="120" text-anchor="middle" font-size="13" font-weight="600" fill="var(--ink)">2 FIDs × 512 t1 points</text>','Two FIDs per t1 value, then t1 grows by 20 µs. 1024 FIDs in all.']
+};
+var STEPS=[
+{t:'1. Wait, then set the powers',c:'2 d1 do:f2 · 10u pl1:f1 · 10u pl12:f2',w:'Wait d1 = 1.55 s with the proton decoupler off, then set the carbon pulse power and the proton decoupling power. The short d1 lets only mobile carbons recover, which is how this version selects the mobile fraction.',s:'I<sub>z</sub> + S<sub>z</sub>',sp:'I and S are the two bonded carbons. Both point along the field.',o:'p = 0',pic:'z'},
+{t:'2. One 90° pulse on every carbon',c:'p1:f1 ph1 · 1u cpds2:f2 pl22:f2',w:'A 4 µs carbon pulse tips all carbon magnetisation into the plane. One microsecond later TPPM proton decoupling starts and runs until the FID ends, so the C–H couplings cannot smear the carbon signal.',s:'−(I<sub>y</sub> + S<sub>y</sub>)',sp:'Both carbons in the plane, precessing at their own offsets.',o:'0 → ±1',pic:'y'},
+{t:'3. First echo: let the J coupling work',c:'d2 · p2:f1 ph2 · d2',w:'Wait τ, a 180° pulse, wait τ, with τ = 32 rotor periods = 2.66 ms. The echo undoes chemical-shift evolution but not the ¹³C–¹³C J coupling, so the pair evolves under J alone for 2τ and in-phase becomes antiphase.',s:'−(I<sub>y</sub>+S<sub>y</sub>) cos 2πJτ + (2I<sub>x</sub>S<sub>z</sub> + 2S<sub>x</sub>I<sub>z</sub>) sin 2πJτ',sp:'The sin part is antiphase: carbon I points +x when S is up, −x when S is down. At J = 40 Hz, sin 2πJτ = 0.62.',o:'±1 → ∓1',pic:'anti'},
+{t:'4. Turn antiphase into double quantum',c:'p1:f1 ph3',w:'A second 90° pulse, in phase with the first, turns the antiphase pair into one shared double-quantum coherence. A carbon without a ¹³C neighbour never became antiphase and is put back along z, never to be detected. That is why there is no diagonal.',s:'−2 DQ<sub>y</sub> sin 2πJτ',sp:'DQ<sub>y</sub> = ½(2I<sub>x</sub>S<sub>y</sub> + 2I<sub>y</sub>S<sub>x</sub>): one phase for the pair.',o:'∓1 → ±2',pic:'dq'},
+{t:'5. t1: the pair precesses at its sum frequency',c:'4 d0 (grows by in0 = 20 µs per point)',w:'The double-quantum coherence turns at Ω<sub>I</sub> + Ω<sub>S</sub>. Repeating with longer t1 and watching the final signal oscillate gives that sum frequency, the vertical axis of the 2D spectrum. Decoupling stays on.',s:'DQ<sub>y</sub> cos(Ω<sub>I</sub>+Ω<sub>S</sub>)t1 − DQ<sub>x</sub> sin(Ω<sub>I</sub>+Ω<sub>S</sub>)t1',sp:'The shared phase has turned by (Ω<sub>I</sub>+Ω<sub>S</sub>) × t1.',o:'±2',pic:'dq'},
+{t:'6. Convert the double quantum back',c:'p1:f1 ph4',w:'A third 90° pulse turns the invisible DQ coherence back into antiphase magnetisation. Only the DQ<sub>y</sub> part converts; DQ<sub>x</sub> is lost, which is why the loop records a second FID with the excitation shifted by 45°.',s:'(2I<sub>x</sub>S<sub>z</sub> + 2I<sub>z</sub>S<sub>x</sub>) cos(Ω<sub>I</sub>+Ω<sub>S</sub>)t1',sp:'Antiphase again; its size now depends on t1.',o:'±2 → +1',pic:'anti'},
+{t:'7. Second echo: antiphase back to in-phase',c:'d2 · p2:f1 ph5 · d2 · d11',w:'The same echo again. J turns antiphase back into in-phase, so the doublet halves add instead of cancelling under the broad solid-state lines. This is the "refocused" part of the name.',s:'(I<sub>y</sub> + S<sub>y</sub>) sin² 2πJτ · cos(Ω<sub>I</sub>+Ω<sub>S</sub>)t1',sp:'In-phase and shorter: two J conversions cost sin² 2πJτ, about 0.38.',o:'+1 → −1',pic:'inph'},
+{t:'8. Record the FID',c:'1u cpds3:f2 pl12:f2 · go=2 ph31 · 1m do:f2',w:'Decoupling switches to program 3, the receiver opens with phase ph31 and records 19.4 ms, then the scan repeats with the next phase-table entries until 8 scans are summed. Those eight phase sets form the double-quantum filter.',s:'In-phase lines at Ω<sub>I</sub> and Ω<sub>S</sub>, amplitude ∝ cos(Ω<sub>I</sub>+Ω<sub>S</sub>)t1',sp:'What the coil sees.',o:'−1 (detected)',pic:'fid'},
+{t:'9. Store it, shift by 45°, move t1 on',c:'wr #0 if #0 zd · ip1 ip2 ip3 · lo to 2 times 2 · id0 · lo to 2 times td1half',w:'The FID is written, the three excitation tables shift by 45° (one unit of an (8) table) and the scan loop runs again: a DQ coherence shifts twice as far, so this second FID is the sine partner of the first. Then t1 grows by 20 µs, 512 times.',s:'Second FID: excitation +45°, DQ +90°',sp:'Two FIDs per t1 point, 1024 FIDs in all, about 3.6 h.',o:'—',pic:'loop'}
+];
+var cur=0,blks=document.querySelectorAll('.blk'),segs=document.querySelectorAll('.seg'),dots=document.getElementById('dots');
+STEPS.forEach(function(s,i){var b=document.createElement('button');b.type='button';b.textContent=String(i+1);b.setAttribute('role','tab');b.setAttribute('aria-label',s.t);b.addEventListener('click',function(){go(i);});dots.appendChild(b);});
+blks.forEach(function(b){b.addEventListener('click',function(){go(parseInt(b.dataset.s.split(' ')[0],10));});});
+document.getElementById('prev').addEventListener('click',function(){go(cur-1);});
+document.getElementById('next').addEventListener('click',function(){go(cur+1);});
+document.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){go(cur+1);}else if(e.key==='ArrowLeft'){go(cur-1);}});
+function go(i){
+  cur=(i+STEPS.length)%STEPS.length;var s=STEPS[cur];
+  document.getElementById('ttl').textContent=s.t;
+  document.getElementById('what').innerHTML=s.w;
+  document.getElementById('cod').textContent=s.c;
+  document.getElementById('sta').innerHTML=s.s;
+  document.getElementById('splain').innerHTML=s.sp;
+  document.getElementById('ord').innerHTML=s.o;
+  var p=PICS[s.pic];
+  document.getElementById('pic').innerHTML=svgWrap(260,150,p[0],'Spin picture for step '+(cur+1));
+  document.getElementById('piccap').textContent=p[1];
+  document.getElementById('stp').textContent='Step '+(cur+1)+' of '+STEPS.length;
+  blks.forEach(function(b){b.classList.toggle('dim',b.dataset.s.split(' ').indexOf(String(cur))<0);});
+  var last=cur>=8?7:cur;
+  segs.forEach(function(g){var k=parseInt(g.dataset.k,10);g.classList.toggle('off',k>last);g.classList.toggle('now',k===last&&cur<8);});
+  dots.querySelectorAll('button').forEach(function(d,j){if(j===cur){d.setAttribute('aria-current','true');}else{d.removeAttribute('aria-current');}});
+}
+go(0);
+</script>
+</body>
+</html>
